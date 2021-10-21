@@ -12,7 +12,7 @@ const theme = createTheme();
 export default function EditBlogScreen(props) {
 
   const [loading, setLoading] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState('');
   const [blog, setBlog] = useState({});
   const [editId, setId] = useState('');
   useEffect(() => {
@@ -34,6 +34,10 @@ export default function EditBlogScreen(props) {
      .then((res) => {
        if (res.status) {
          setBlog(res.data);
+        if(res.data.author_id!=localStorage.getItem('user_id'))
+        {
+         setRedirect('/');
+        }
        }
      })
      .catch((err) => console.log(err));
@@ -52,7 +56,7 @@ export default function EditBlogScreen(props) {
     })
       .then((response) => {
         if (response.status) {
-          setRedirect(true);
+          setRedirect('/');
           setLoading(false);
         }
         return response.json();
@@ -63,7 +67,7 @@ export default function EditBlogScreen(props) {
     return <Redirect to="signin" />;
   }
   if (redirect) {
-    return <Redirect to="/" />;
+    return <Redirect to={redirect} />;
   }
   return (
     <ThemeProvider theme={theme}>
