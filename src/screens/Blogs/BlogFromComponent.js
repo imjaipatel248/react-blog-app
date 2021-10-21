@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { CircularProgress } from "@mui/material";
 import TagsInput from "../Components/TagInputComponent";
+import MDEditor from '@uiw/react-md-editor';
 
 export default function BlogFromComponent({ ...props }) {
   const { buttonName, handleSubmit, formTitle, blog } = props;
@@ -65,21 +66,10 @@ if(blog.title){
               autoComplete="title"
               autoFocus
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="body"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              label="Body"
-              name="body"
-              type="body"
-              autoComplete="body"
-              autoFocus
-              multiline
-              rows={4}
-            />
+    <MDEditor
+        value={body}
+        onChange={setBody}
+      />
 
             <TagsInput
               margin="normal"

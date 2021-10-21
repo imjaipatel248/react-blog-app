@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { CardActions } from "@mui/material";
 import { getLoggedInUserId } from "../../Helpers/UserHelper";
 import { Redirect } from "react-router";
+import MDEditor from "@uiw/react-md-editor";
 
 function BasicChips({ tags }) {
   const tageArray = tags.split(",");
@@ -21,7 +22,7 @@ function BasicChips({ tags }) {
     <Stack direction="row" spacing={1}>
       {tageArray.map((name) => (
         <div key={name}>
-          {name && <Chip component={Link} to={`/home/${name}`} label={name} />}
+          {name && <Chip component={Link} to={`/tags/${name}`} label={name} />}
         </div>
       ))}
     </Stack>
@@ -62,7 +63,9 @@ export default function CardComponent({ blogDetail }) {
           <Typography variant="h5" component="div">
             {blogDetail.title}
           </Typography>
-          <Typography variant="body2">{blogDetail.body}</Typography>
+          <Typography variant="body2"sx={{mt:2}} >
+          <MDEditor.Markdown source={blogDetail.body} />
+          </Typography>
         </CardContent>
         <CardActions>{<BasicChips tags={blogDetail.tags} />} </CardActions>
       </React.Fragment>

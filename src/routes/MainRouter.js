@@ -15,7 +15,7 @@ const MainRouter = () => {
         <Route exact path="/signup" component={SignUpScreen}></Route>
         <Route exact path="/signin" component={SignInScreen}></Route>
         <Route exact path="/" component={HomeScreen}></Route>
-        <Route exact path="/home/:tag" component={HomeScreen}></Route>
+        <Route exact path="/tags/:tag" component={HomeScreen}></Route>
         <Route exact path="/add-blog" component={CreateBlogScreen}></Route>
         <Route exact path="/edit-blog/:id" component={EditBlogScreen}></Route>
       </Switch>
