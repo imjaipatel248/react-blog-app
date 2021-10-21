@@ -10,13 +10,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Grid, Link } from '@mui/material';
 import { Redirect } from 'react-router';
 
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignUpScreen() {
   const [name,setName]=useState("")
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
@@ -129,6 +129,13 @@ export default function SignIn() {
             >
               Sign Up
             </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/signin" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>

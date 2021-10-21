@@ -1,12 +1,13 @@
 import { Backdrop, CircularProgress, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
+import { Redirect } from "react-router";
 import { isAuthenticated } from "../../Helpers/UserHelper";
 import ListBlogScreen from "../Blogs/ListBlogScreen";
 
-export default function Home(props) {
+export default function HomeScreen(props) {
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
      const tag=props.match.params.tag ? '/'+ props.match.params.tag : '';
@@ -28,6 +29,9 @@ export default function Home(props) {
       .catch((err) => console.log(err));
       setLoading(false)
   }, [props.match.params]);
+  if (!isAuthenticated()) {
+    return <Redirect to="signin" />;
+  }
   return (
     <div>
       <Backdrop

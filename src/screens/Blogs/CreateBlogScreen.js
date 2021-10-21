@@ -9,7 +9,7 @@ import BlogFromComponent from "./BlogFromComponent";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function CreateBlogScreen() {
 
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
