@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Backdrop from "@mui/material/Backdrop";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -9,15 +9,41 @@ import BlogFromComponent from "./BlogFromComponent";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function EditBlogScreen(props) {
 
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [blog, setBlog] = useState({});
+  const [editId, setId] = useState('');
+  useEffect(() => {
+    setId(props.match.params.id)
+
+  },[])
+  useEffect(() => {
+    const id=props.match.params.id ? '/'+ props.match.params.id : '';
+
+    setId(id)
+   setLoading(true)
+   fetch(`${process.env.REACT_APP_API_URL}/blog/blog${id}`, {
+     method: "GET",
+     headers: { "Content-type": "application/json", 'Authorization':isAuthenticated()},
+   })
+     .then((response) => {
+       return response.json();
+     })
+     .then((res) => {
+       if (res.status) {
+         setBlog(res.data);
+       }
+     })
+     .catch((err) => console.log(err));
+     setLoading(false)
+ }, [props.match.params]);
   const handleSubmit = async (data) => {
     console.log(handleSubmit);
     setLoading(true);
-    await fetch(`${process.env.REACT_APP_API_URL}/blog/create-blog`, {
-      method: "POST",
+    await fetch(`${process.env.REACT_APP_API_URL}/blog/edit-blog${editId}`, {
+      method: "PUT",
       headers: {
         "Content-type": "application/json",
         Authorization: isAuthenticated(),
@@ -49,9 +75,9 @@ export default function SignIn() {
       </Backdrop>
       <BlogFromComponent
         handleSubmit={(data)=>handleSubmit(data)}
-        buttonName="add blog"
-        formTitle={"Add Blog"}
-        blog={{}}
+        buttonName="edit blog"
+        formTitle={"Edit Blog"}
+        blog={blog}
       />
     </ThemeProvider>
   );

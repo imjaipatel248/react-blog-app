@@ -6,7 +6,6 @@ export default function ListBlogScreen  ({blogs}) {
     useEffect(() => {
         setListBlogs(blogs)      
     },[blogs]);
-    console.log('blogs');
     return (<div>
         {listBlogs.map((blogDetail)=>
             <CardComponent key={blogDetail.id} blogDetail={blogDetail}></CardComponent> )}

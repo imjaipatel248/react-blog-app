@@ -12,22 +12,16 @@ import Stack from "@mui/material/Stack";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { CardActions } from "@mui/material";
+import { getLoggedInUserId } from "../../Helpers/UserHelper";
+import { Redirect } from "react-router";
 
 function BasicChips({ tags }) {
   const tageArray = tags.split(",");
-  console.log(tageArray);
   return (
     <Stack direction="row" spacing={1}>
       {tageArray.map((name) => (
-        <div>
-          {name && (
-            <Chip
-              component={Link}
-              to={`/home/${name}`}
-              key={name}
-              label={name}
-            />
-          )}
+        <div key={name}>
+          {name && <Chip component={Link} to={`/home/${name}`} label={name} />}
         </div>
       ))}
     </Stack>
@@ -35,6 +29,15 @@ function BasicChips({ tags }) {
 }
 
 export default function CardComponent({ blogDetail }) {
+  const userId = getLoggedInUserId();
+  const [redirectTo, setRedirectTo] = React.useState("");
+
+  const onClickEditButton = (blog_id) => {
+    setRedirectTo(`/edit-blog/${blog_id}`);
+  };
+  if (redirectTo) {
+    return <Redirect to={redirectTo} />;
+  }
   return (
     <Card sx={{ mt: 3 }} variant="outlined">
       <React.Fragment>
@@ -45,14 +48,16 @@ export default function CardComponent({ blogDetail }) {
             </Avatar>
           }
           action={
-            <IconButton aria-label="settings">
-              <EditIcon />
+            <IconButton
+              aria-label="settings"
+              onClick={() => onClickEditButton(blogDetail.id)}
+            >
+              {userId == blogDetail.author_id && <EditIcon />}
             </IconButton>
           }
           title={blogDetail.author_name}
           subheader={moment(blogDetail.date).format("MM/DD/YYYY HH:MM")}
         />
-
         <CardContent>
           <Typography variant="h5" component="div">
             {blogDetail.title}

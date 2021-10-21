@@ -8,7 +8,16 @@ export const isAuthenticated = () => {
     return false;
   };
   
-
+  export const getLoggedInUserId = () => {
+    if (typeof window == "undefined") {
+      return false;
+    }
+    if (localStorage.getItem("user_id")) {
+      return localStorage.getItem("user_id");
+    }
+    return false;
+  };
+  
 export const SignOutUser = async() =>{
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt");

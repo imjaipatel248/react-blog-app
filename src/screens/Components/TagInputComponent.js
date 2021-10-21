@@ -6,7 +6,6 @@ import Chip from '@mui/material/Chip';
 
 
 export default function TagsInput({ ...props }) {
-  // const classes = useStyles();
   const { selectedTags, placeholder, tags, ...other } = props;
   const [inputValue, setInputValue] = React.useState("");
   const [selectedItem, setSelectedItem] = React.useState([]);
