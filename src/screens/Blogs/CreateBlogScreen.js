@@ -21,7 +21,7 @@ export default function SignIn() {
   const [tags,setTags]=useState([]);
   const [chipTags,setChipTags]=useState([]);
   const [loading,setLoading]=useState(false)
-  const [redirectToSign,setRedirectToSign]=useState(false)
+  const [redirect,setRedirect]=useState(false)
   const handleSubmit =async (event) => {
     setLoading(true);
     event.preventDefault();
@@ -31,13 +31,13 @@ export default function SignIn() {
         body:JSON.stringify({
           title,
           body,
-          tags:chipTags.toString()
+          tags:chipTags.toString()+','
         })
       })
         .then((response) => {
           if(response.status)
           {
-            setRedirectToSign(true);
+            setRedirect(true);
             setLoading(false);
           }
           return response.json();
@@ -52,7 +52,10 @@ export default function SignIn() {
   {
       return <Redirect to="signin"/>
   }
-
+  if(redirect)
+  {
+      return <Redirect to="/"/>
+  }
   return (
     <ThemeProvider theme={theme}>
       <Backdrop
