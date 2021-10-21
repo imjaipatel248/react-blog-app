@@ -11,10 +11,11 @@ import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Link } from 'react-router-dom';
-import { SignOutUser } from "../../Helpers/UserHelper";
+import { Link ,withRouter } from "react-router-dom";
+import { isAuthenticated, SignOutUser } from "../../Helpers/UserHelper";
 
-export default function NavigationBar() {
+
+function NavigationBar({ history }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -118,42 +119,52 @@ export default function NavigationBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            BLOG
+            <IconButton color="inherit" component={Link} to="/signin">
+              BLOG
+            </IconButton>
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-              component={Link} to="/add-blog"
-            >
-              <Badge>
-                <AddIcon></AddIcon>
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-              component={Link} to="/signin"
-              onClick={async()=>await SignOutUser()}
-            >
-              <Badge>
-                <LogoutIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {isAuthenticated() && (
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+                component={Link}
+                to="/add-blog"
+              >
+                <Badge>
+                  <AddIcon></AddIcon>
+                </Badge>
+              </IconButton>
+            )}
+            {isAuthenticated() && (
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+                component={Link}
+                to="/signin"
+                onClick={async () => await SignOutUser()}
+              >
+                <Badge>
+                  <LogoutIcon />
+                </Badge>
+              </IconButton>
+            )}
+            {isAuthenticated() && (
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -174,3 +185,4 @@ export default function NavigationBar() {
     </Box>
   );
 }
+export default withRouter(NavigationBar);
