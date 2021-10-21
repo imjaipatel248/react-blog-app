@@ -86,7 +86,7 @@ if(blog.title){
               fullWidth
               value={title}
               variant="outlined"
-              label="Title"
+              label="Tags"
               type="input"
               autoComplete="title"
               autoFocus
