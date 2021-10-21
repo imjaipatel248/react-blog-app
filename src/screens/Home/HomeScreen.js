@@ -1,6 +1,7 @@
 import { Backdrop, CircularProgress, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
+import { isAuthenticated } from "../../Helpers/UserHelper";
 import ListBlogScreen from "../Blogs/ListBlogScreen";
 
 export default function Home(props) {
@@ -12,7 +13,9 @@ export default function Home(props) {
     setLoading(true)
     fetch(`${process.env.REACT_APP_API_URL}/blog/list-blog${tag}`, {
       method: "GET",
-      headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json"        
+      ,Authorization: isAuthenticated(),
+    },
     })
       .then((response) => {
         return response.json();
