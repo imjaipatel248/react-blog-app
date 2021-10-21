@@ -24,7 +24,7 @@ export default function EditBlogScreen(props) {
 
     setId(id)
    setLoading(true)
-   fetch(`${process.env.REACT_APP_API_URL}/blog/blog${id}`, {
+   fetch(`${process.env.REACT_APP_API_URL}/blog/get-blog${id}`, {
      method: "GET",
      headers: { "Content-type": "application/json", 'Authorization':isAuthenticated()},
    })
