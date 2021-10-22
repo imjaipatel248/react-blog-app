@@ -26,7 +26,7 @@ export default function SignUpScreen() {
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();
-    if (password != cPassword) {
+    if (password !== cPassword) {
       setError("Password and confirm password are not matching");
       setLoading(false);
 

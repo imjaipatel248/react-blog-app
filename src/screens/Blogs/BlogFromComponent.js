@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import TagsInput from "../Components/TagInputComponent";
 import MDEditor from '@uiw/react-md-editor';
-import { Alert, CircularProgress, Grid, Link, Snackbar } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 
 export default function BlogFromComponent({ ...props }) {
   const { buttonName, handleSubmit, formTitle, blog } = props;
