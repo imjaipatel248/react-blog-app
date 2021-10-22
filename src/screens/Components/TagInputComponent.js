@@ -29,7 +29,7 @@ export default function TagsInput({ ...props }) {
       }
       if (!event.target.value.replace(/\s/g, "").length) return;
 
-      newSelectedItem.push(event.target.value.trim());
+      newSelectedItem.push(event.target.value.trim().replace(",",""));
       setSelectedItem(newSelectedItem);
       setInputValue("");
     }

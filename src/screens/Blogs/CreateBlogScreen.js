@@ -14,7 +14,6 @@ export default function CreateBlogScreen() {
   const [loading, setLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const handleSubmit = async (data) => {
-    console.log(handleSubmit);
     setLoading(true);
     await fetch(`${process.env.REACT_APP_API_URL}/blog/create-blog`, {
       method: "POST",
