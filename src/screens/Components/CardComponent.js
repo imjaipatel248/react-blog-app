@@ -53,7 +53,7 @@ export default function CardComponent({ blogDetail }) {
               aria-label="settings"
               onClick={() => onClickEditButton(blogDetail.id)}
             >
-              {userId == blogDetail.author_id && <EditIcon />}
+              {userId === blogDetail.author_id && <EditIcon />}
             </IconButton>
           }
           title={blogDetail.author_name}

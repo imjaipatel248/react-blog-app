@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import SignInScreen from "../screens/Auth/SignInScreen";
 import SignUpScreen from "../screens/Auth/SignUpScreen";

@@ -15,10 +15,7 @@ export default function EditBlogScreen(props) {
   const [redirect, setRedirect] = useState('');
   const [blog, setBlog] = useState({});
   const [editId, setId] = useState('');
-  useEffect(() => {
-    setId(props.match.params.id)
 
-  },[])
   useEffect(() => {
     const id=props.match.params.id ? '/'+ props.match.params.id : '';
 
@@ -34,7 +31,7 @@ export default function EditBlogScreen(props) {
      .then((res) => {
        if (res.status) {
          setBlog(res.data);
-        if(res.data.author_id!=localStorage.getItem('user_id'))
+        if(res.data.author_id!==localStorage.getItem('user_id'))
         {
          setRedirect('/');
         }
