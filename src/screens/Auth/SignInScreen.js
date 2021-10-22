@@ -10,7 +10,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CircularProgress, Grid, Link } from "@mui/material";
+import { Alert, CircularProgress, Grid, Link, Snackbar } from "@mui/material";
 import { Redirect } from "react-router";
 import { isAuthenticated } from "../../Helpers/UserHelper";
 
@@ -21,6 +21,7 @@ export default function SignInScreen() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [redirectToSign, setRedirectToSign] = useState(false);
+  const [error, setError] = useState("");
   useEffect(() => {
     return () => {
       setLoading(false);
@@ -41,12 +42,15 @@ export default function SignInScreen() {
       .then((response) => {
         return response.json();
       })
-      .then( (obj) => {
-
-         localStorage.setItem("jwt", obj.jwt);
-         localStorage.setItem("user_id", obj.user_id);
-         setRedirectToSign(true);
-         setLoading(false);
+      .then((obj) => {
+        if (obj.success) {
+          localStorage.setItem("jwt", obj.jwt);
+          localStorage.setItem("user_id", obj.user_id);
+          setRedirectToSign(true);
+        } else {
+          setError(obj.detail);
+        }
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -61,6 +65,16 @@ export default function SignInScreen() {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={error.length}
+        autoHideDuration={6000}
+        onClose={()=>setError("")}
+      >
+        <Alert severity="error" sx={{ width: "100%" }}>
+        {error}
+        </Alert>
+      </Snackbar>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

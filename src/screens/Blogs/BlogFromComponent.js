@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import TagsInput from "../Components/TagInputComponent";
 import MDEditor from '@uiw/react-md-editor';
+import { Alert, CircularProgress, Grid, Link, Snackbar } from "@mui/material";
 
 export default function BlogFromComponent({ ...props }) {
   const { buttonName, handleSubmit, formTitle, blog } = props;
@@ -14,11 +15,27 @@ export default function BlogFromComponent({ ...props }) {
   const [body, setBody] = useState("");
   const [tags, setTags] = useState([]);
   const [chipTags, setChipTags] = useState([]);
+  const [error, setError] = useState("");
 
   const handleSelecetedTags = (items) => {
     setChipTags(items);
   };
   const onClickSubmitButton = () => {
+    if(!title.length)
+    {
+      setError("Title may not be blank.");
+      return;
+    }
+    if(!body.length)
+    {
+      setError("Body may not be blank.");
+      return;
+    }
+    if(!chipTags.length)
+    {
+      setError("Tags may not be blank.");
+      return;
+    }
     const data = {
       title,
       body,
@@ -39,6 +56,16 @@ if(blog.title){
     <div>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={error.length}
+        autoHideDuration={6000}
+        onClose={()=>setError("")}
+      >
+        <Alert severity="error" sx={{ width: "100%" }}>
+        {error}
+        </Alert>
+      </Snackbar>
         <Box
           sx={{
             marginTop: 8,
