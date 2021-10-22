@@ -10,8 +10,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Alert, CircularProgress, Grid, Link, Snackbar } from "@mui/material";
+import { Alert, CircularProgress, Grid, Snackbar } from "@mui/material";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 
 const theme = createTheme();
 

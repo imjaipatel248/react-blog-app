@@ -4,13 +4,13 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Backdrop from "@mui/material/Backdrop";
-
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Alert, CircularProgress, Grid, Link, Snackbar } from "@mui/material";
+import { Alert, CircularProgress, Grid, Snackbar } from "@mui/material";
 import { Redirect } from "react-router";
 import { isAuthenticated } from "../../Helpers/UserHelper";
 
@@ -127,7 +127,7 @@ export default function SignInScreen() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
